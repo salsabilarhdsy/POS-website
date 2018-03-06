@@ -4,7 +4,8 @@
 <html>
 <head>
   <title></title>
-  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/app.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 * {
@@ -123,6 +124,7 @@ input[type=submit]:hover {
         </ul>
     </div>
 @endif
+
 
   <form action="/newproduct_proses" method="POST" enctype="multipart/form-data">
   @csrf
