@@ -46,6 +46,7 @@ body {
 }
 .header{
 	padding: 1%;
+	height:120px;
 }
 .logo{
 	float:left;

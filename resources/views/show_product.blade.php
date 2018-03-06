@@ -113,25 +113,14 @@ input[type=submit]:hover {
 </head>
 <body>
 <div class="container">
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-  <form action="/newproduct_proses" method="POST" enctype="multipart/form-data">
+  <form action="/editproduct_proses/{{$product->id}}" method="POST" enctype="multipart/form-data">
   @csrf
     <div class="row">
       <div class="col-25">
         <label for="kode">Kode Produk</label>
       </div>
       <div class="col-75">
-        <input type="text" id="kodeproduk" name="kodeproduk" placeholder="Kode Produk" >
+        <input type="text" id="kodeproduk" name="kodeproduk" placeholder="Kode Produk" value="{{$product->no_product}}" >
       </div>
     </div>
     <div class="row">
@@ -139,7 +128,7 @@ input[type=submit]:hover {
         <label for="nama">Nama Produk</label>
       </div>
       <div class="col-75">
-        <input type="text" id="namaproduk" name="namaproduk" placeholder="Nama Produk" required>
+        <input type="text" id="namaproduk" name="namaproduk" placeholder="Nama Produk" value="{{$product->name}}" required>
       </div>
     </div>
     <div class="row">
@@ -147,7 +136,7 @@ input[type=submit]:hover {
         <label for="kategori">Kategori</label>
       </div>
        <div class="col-75">
-        <input type="text" id="kategori" name="kategori" placeholder="Kategori Produk" >
+        <input type="text" id="kategori" name="kategori" placeholder="Kategori Produk" value="{{$product->category}}">
       </div>
     </div>
      <div class="row">
@@ -155,7 +144,7 @@ input[type=submit]:hover {
         <label for="harga">Harga (Rp.)</label>
       </div>
        <div class="col-75">
-        <input type="text" id="hargaproduk" name="hargaproduk" placeholder="Harga Produk" >
+        <input type="text" id="hargaproduk" name="hargaproduk" value="{{$product->price}}" >
       </div>
     </div>
     <div class="row">
@@ -163,7 +152,7 @@ input[type=submit]:hover {
         <label for="deskripsi">Deskripsi Produk</label>
       </div>
       <div class="col-75">
-        <textarea id="deskripsi" name="deskripsi" placeholder="Write something.." style="height:200px" ></textarea>
+        <textarea id="deskripsi" name="deskripsi" style="height:200px">{{$product->description}}</textarea>
       </div>
     </div>
     <div class="row">
@@ -171,12 +160,12 @@ input[type=submit]:hover {
         <label for="images">Gambar Produk</label>
       </div>
        <div class="col-75">
-        <input type="text" id="gambarproduk" name="gambarproduk" >
+        <input type="text" id="gambarproduk" name="gambarproduk" value="{{$product->image}}">
       </div>
     </div>
     <div class="row">
-      <div class="col-75">
-      <input type="submit" id="submit" value="Tambah Produk">
+      <div class="col- 75">
+      <input type="submit" id="submit" value="Edit Produk">
       </div>
     </div>
   </form>

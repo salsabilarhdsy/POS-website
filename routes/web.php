@@ -20,5 +20,7 @@ Route::get('/ListProducts', 'ListProductController@listProducts');
 Route::get('/login', 'LoginController@index');
 Route::get('/details', 'DetailsController@index');
 Route::get('/newproduct', 'NewProductController@index');
+Route::get('/editproduct/{id}', 'NewProductController@show');
+Route::post('/editproduct_proses/{id}', 'NewProductController@editProduct');
+Route::get('/deleteproduct_proses/{id}', 'NewProductController@deleteProduct');
 Route::post('/newproduct_proses', 'NewProductController@store');
-Route::get('/newproduct_proses', 'NewProductController@store');

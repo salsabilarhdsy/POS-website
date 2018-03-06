@@ -42,20 +42,22 @@ th {
 </style>
 </head>
 <body>
-@foreach($data as $item)
+
 <table>
   <tr>
     <th>Name</th>
     <th>Price</th>
     <th>Action</th>
   </tr>
+@foreach($data as $item)
    <tr>
     <td>{{$item->name}}</td>
     <td>Rp. {{$item->price}}</td>
-    <td><button class="button">Edit</button><button class="button">Delete</button></td>
+    <td><a href="/editproduct/{{$item->id}}"><button class="button">Edit</button></a><a href="/deleteproduct_proses/{{$item->id}}"><button class="button">Delete</button></a></td>
 </tr>
-</table>
 @endforeach
+</table>
+
 
 </body>
 </html>
