@@ -12,7 +12,7 @@
 }
 
 body{
-  background-color: #f2f2f2;
+  background-color: #f2f2f2; 
 }
 .container input[type=text], select, textarea{
     width: 100%;
@@ -97,7 +97,7 @@ input[type=submit]:hover {
     padding-bottom: 12px;
     text-align: left;
     background-color: #4CAF50;
-    color: white;
+    color: white; 
 }
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
