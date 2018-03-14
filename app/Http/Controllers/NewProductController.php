@@ -19,7 +19,6 @@ class NewProductController extends Controller
     {
     	 $validator = Validator::make($request->all(), [
             'deskripsi' => 'required',
-            'gambarproduk' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -34,7 +33,6 @@ class NewProductController extends Controller
         $newproduct->price = $request->hargaproduk;
         $newproduct->description = $request->deskripsi;
         $newproduct->category = $request->kategori;
-        $newproduct->image = $request->gambarproduk;
         $newproduct->save();
         return redirect ('ListProducts');
     }
@@ -54,7 +52,6 @@ class NewProductController extends Controller
         $editproduct->price = $request->hargaproduk;
         $editproduct->description = $request->deskripsi;
         $editproduct->category = $request->kategori;
-        $editproduct->image = $request->gambarproduk;
         $editproduct->save();
         return redirect ('ListProducts');
     }

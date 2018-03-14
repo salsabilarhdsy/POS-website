@@ -11,16 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/ListProducts', 'ListProductController@listProducts')->middleware('auth');
+Route::get('/newproduct', 'NewProductController@index')->middleware('auth');
+Route::get('/editproduct/{id}', 'NewProductController@show')->middleware('auth');
+Route::post('/editproduct_proses/{id}', 'NewProductController@editProduct')->middleware('auth');
+Route::get('/deleteproduct_proses/{id}', 'NewProductController@deleteProduct')->middleware('auth');
+Route::post('/newproduct_proses', 'NewProductController@store')->middleware('auth');
 
-Route::get('/products', 'ProductController@products');
-Route::get('/ListProducts', 'ListProductController@listProducts');
-Route::get('/login', 'LoginController@index');
-Route::get('/details', 'DetailsController@index');
-Route::get('/newproduct', 'NewProductController@index');
-Route::get('/editproduct/{id}', 'NewProductController@show');
-Route::post('/editproduct_proses/{id}', 'NewProductController@editProduct');
-Route::get('/deleteproduct_proses/{id}', 'NewProductController@deleteProduct');
-Route::post('/newproduct_proses', 'NewProductController@store');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

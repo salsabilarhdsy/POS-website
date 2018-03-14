@@ -169,14 +169,6 @@ input[type=submit]:hover {
       </div>
     </div>
     <div class="row">
-      <div class="col-25">
-        <label for="images">Gambar Produk</label>
-      </div>
-       <div class="col-75">
-        <input type="text" id="gambarproduk" name="gambarproduk" >
-      </div>
-    </div>
-    <div class="row">
       <div class="col-75">
       <input type="submit" id="submit" value="Tambah Produk">
       </div>

@@ -66,48 +66,35 @@
 <!-- start header -->
 <div class="header_bg">
 <div class="wrap">
-	<div class="header">
-		<div class="logo">
-			<a href="index.php"><img src="../images/header.png" alt=""/></a>
-		</div>
-		<div class="h_icon">
-		<a href=""><img src="../images/cart.png"></a>
-		<a href="" class="usericon"><img src="../images/usericon2.png"></a>
-		</div>
-	</div>
-	<div class="search_box">
-			<form>
-				<input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-			</form>
-	</div>
-</div>
+
 </div>
 <div class="header_btm">
 <div class="wrap">
 	<div class="header_sub">
+
 		<div class="h_menu">
 			<ul>
-				<li class="active"><a href="index.php">Home</a></li> |
+				<li><a href="index.php">Home</a></li> |
 				<li><a href="#">Menu</a></li> |
 				<li><a href="#">Menu</a></li> |
 				<li><a href="#">Menu</a></li> 
 			</ul>
+
 		</div>
 		<div class="top-nav">
 			 <nav class="nav">	        	
 	    	    <a href="#" id="w3-menu-trigger"> </a>
-	                  <ul class="nav-list" style="">
+	                <ul class="nav-list" style="">
 	            	        <li class="nav-item"><a class="active" href="index.html">Home</a></li>
 							<li class="nav-item"><a href="#">Menu</a></li>
 							<li class="nav-item"><a href="#">Menu</a></li>
 							<li class="nav-item"><a href="#">Menu</a></li>
-					</ul>
-							
-	           </nav>
-	            
-	          <div class="clear"></div>
-	          <script src="js/responsive.menu.js"></script>
-         </div>		  
+					</ul>		
+	         </nav>
+	        <script src="js/responsive.menu.js"></script>
+        </div>		
+         <a href="{{ route('logout') }}" class="logout">Logout</a>  
+        
 	<div class="clear"></div>
 </div>
 </div>
