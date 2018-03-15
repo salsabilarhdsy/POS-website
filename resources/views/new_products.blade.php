@@ -1,183 +1,188 @@
-@include('header')
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title></title>
-  <link rel="stylesheet" type="text/css" href="css/app.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-    box-sizing: border-box;
-}
+    <title>Kasir</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/bootstrap-3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/datatables/css/dataTables.bootstrap.css">
 
-body{
-  background-color: #f2f2f2;
-}
-.container input[type=text], select, textarea{
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    float: right;
-}
-
-label {
-    padding: 12px 12px 12px 0;
-    display: inline-block;
-}
-
-input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 1%;
-
-  
-}
-
-input[type=submit]:hover {
-    background-color: #45a049;
-}
-
-.container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 2%;
-    margin-left: 10%;
-    margin-right: 10%;
-}
-
-.col-25 {
-    float: left;
-    width: 20%;
-    padding: 4px;
-}
-
-.col-75 {
-    float: right;
-    width: 80%;
-    padding: 4px;
-}
-
-.col-75 img{
-    width: 200px;
-    height: 200px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-#customers {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    margin: 5%;
-    width: 60%;
-}
-
-#customers td, #customers th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-#customers tr:nth-child(even){background-color: #f2f2f2;}
-
-#customers tr:hover {background-color: #ddd;}
-
-#customers th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
-}
-
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-@media (max-width: 600px) {
-    .col-25, .col-75, input[type=submit] {
-        width: 100%;
-        margin-top: 0;
-    }
-}
-
-
-</style>
+    <script src="assets/jquery-2.1.4.min.js"></script>
+    <script src="assets/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+    <script src="assets/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="assets/datatables/js/dataTables.bootstrap.js"></script>
+    <script src="assets/maskMoney/jquery.maskMoney.min.js"></script>
+    <style type="text/css">
+        #header,#footer{
+            background-color: #337ab7;
+            color: #fff;
+            text-align: left;
+            font-family: all;
+        }
+        #header{
+            margin-bottom: 30px;
+        }
+        #header h1{
+            margin: 0;
+            padding: 15px;
+        }
+        #footer{
+            padding: 5px;
+            text-align: center;
+            margin-top: 5%;
+        }
+        .btn{
+            border-radius: 2px;
+        }
+        .btn-kecil{
+            padding: 0 6px 0 6px;
+        }
+        .form-control[disabled], .form-control[readonly], 
+        fieldset[disabled] .form-control{
+            background-color: #EBF2F8;
+        }
+        .besar{
+            font-size: 20px;
+            font-weight: 300;
+        }
+        table th,table td{
+            text-align: center;
+        }
+        form{
+            margin-top: 20px;
+        }
+        .mb{
+            margin-bottom: 30px;
+        }
+        .nav ul li{
+            list-style: none;
+        }
+        .nav ul{
+            padding-left: 20px;
+            
+        }
+        .nav ul li a{
+            text-decoration: none;
+            display: block;
+            padding: 4px;
+            margin: 3px;
+        }
+        .nav ul li a:hover{
+            text-decoration: none;
+            color: #fff;
+            background-color: #337ab7;
+            border-radius: 2px;
+        }
+        .nav>li>a:hover{
+            background-color: #337ab7;
+            color: #fff;
+        }
+        .nav ul .active{
+            background-color: #337ab7;
+            border-radius: 2px;
+        }
+        .nav ul .active a{
+            color: #fff;
+        }
+        .nav li a:active,.nav li a:focus{
+            background-color: #337ab7;
+            border-radius: 2px;
+            color: #fff;
+        }
+        .logout{
+            color: white;
+            float: right;
+            margin-top: -3%;
+            margin-right: 1%;
+            text-decoration-style: none;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
+<div id="header">
+<h1>Koperasi Siswa</h1>
+<a href="{{ route('logout') }}" class="logout">LOGOUT</a> 
+</div><!-- end header -->
+    <div class="col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a href="/"><i class="fa fa-shopping-cart"></i> Tambah Penjualan</a></li>
+              <li><a href="#"><i class="fa fa-list-ul"></i> List Data Penjualan</a></li>
+              <li class="active"><a href="/newproduct"><i class="fa fa-cubes"></i> Tambah Barang</a></li>
+              <li><a href="/ListProducts"><i class="fa fa-list-ul"></i> List Data Barang</a></li>
+            </ul>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-default">
+         <div class="panel-body">
+         @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+         @endif
+            <form class="form-horizontal" id="form_transaksi" role="form" action="/newproduct_proses" method="POST">
+            @csrf
+            <div class="col-md-8">
+            
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="nama_barang">Kode Produk :</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control reset" name="kodeproduk" id="kodeproduk">
+                        </div>
+                    </div>
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="nama_barang">Nama Produk :</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control reset" name="namaproduk" id="namaproduk">
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="nama_barang">Kategori :</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control reset" name="kategori" id="kategori">
+                        </div>
+                    </div>
 
-  <form action="/newproduct_proses" method="POST" enctype="multipart/form-data">
-  @csrf
-    <div class="row">
-      <div class="col-25">
-        <label for="kode">Kode Produk</label>
-      </div>
-      <div class="col-75">
-        <input type="text" id="kodeproduk" name="kodeproduk" placeholder="Kode Produk" >
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="nama">Nama Produk</label>
-      </div>
-      <div class="col-75">
-        <input type="text" id="namaproduk" name="namaproduk" placeholder="Nama Produk" required>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="kategori">Kategori</label>
-      </div>
-       <div class="col-75">
-        <input type="text" id="kategori" name="kategori" placeholder="Kategori Produk" >
-      </div>
-    </div>
-     <div class="row">
-      <div class="col-25">
-        <label for="harga">Harga (Rp.)</label>
-      </div>
-       <div class="col-75">
-        <input type="text" id="hargaproduk" name="hargaproduk" placeholder="Harga Produk" >
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="deskripsi">Deskripsi Produk</label>
-      </div>
-      <div class="col-75">
-        <textarea id="deskripsi" name="deskripsi" placeholder="Write something.." style="height:200px" ></textarea>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-75">
-      <input type="submit" id="submit" value="Tambah Produk">
-      </div>
-    </div>
-  </form>
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="nama_barang">Harga(Rp.) :</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control reset" name="hargaproduk" id="hargaproduk">
+                        </div>
+                    </div>
 
-</div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="nama_barang">Deskripsi :</label>
+                        <div class="col-md-8">
+                            <textarea type="text" class="form-control reset" name="deskripsi" id="deskripsi"></textarea>
+                        </div>
+                    </div>
+
+                   <div class="form-group">
+                       <div class="col-md-offset-3 col-md-3">
+                            <button type="submit" class="btn btn-primary" id="tambah">Tambah</button>
+                        </div>
+                    </div>
+
+                
+                  <!-- </div>
+                </div> --><!-- end panel-->
+            </div><!-- end col-md-8 -->
+            </form>
+         
+
+    <!-- Modal selesai -->
+  
 
 </body>
 </html>
-
-@include('footer')

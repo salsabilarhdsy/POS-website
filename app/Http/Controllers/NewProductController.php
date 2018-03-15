@@ -63,4 +63,5 @@ class NewProductController extends Controller
     	return redirect ('ListProducts');
     }
 
+
 }

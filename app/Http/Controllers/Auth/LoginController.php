@@ -27,10 +27,10 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/ListProducts';
+    protected $redirectTo = '/dashboard';
     protected function redirectTo()
     {
-        return '/ListProducts';
+        return '/dashboard';
     }
     /**
      * Create a new controller instance.
