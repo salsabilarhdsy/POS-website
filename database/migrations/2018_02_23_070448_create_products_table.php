@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->text('description');
             $table->string('category');
+            $table->string('no_product')->unique();
             $table->timestamps();
         });
     }

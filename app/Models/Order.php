@@ -9,8 +9,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-	public function admin()
-	{
-		return $this->belongsTo('App\Models\User','orders');
-	}
+	
 }

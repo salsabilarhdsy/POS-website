@@ -7,7 +7,6 @@
   	<link rel="stylesheet" href="assets/bootstrap-3.3.5/css/bootstrap.min.css">
   	<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
   	<link rel="stylesheet" href="assets/datatables/css/dataTables.bootstrap.css">
-
   	<script src="assets/jquery-2.1.4.min.js"></script>
   	<script src="assets/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 	<script src="assets/datatables/js/jquery.dataTables.min.js"></script>
@@ -134,43 +133,39 @@
 			      </div>
 			    </div> -->
 			    <div class="form-group">
-			      <label class="control-label col-md-3" 
-			      	for="id_barang">Kode Produk :</label>
+			      <label class="control-label col-md-3" for="no_product">Kode Produk :</label>
 			      <div class="col-md-5">
-			        <input list="list_barang" class="form-control reset" 
-			        	placeholder="Isi kode produk" name="no_product" id="no_product" 
+			         <input list="list_barang" class="form-control reset" 
+			        	placeholder="Isi id..." name="id_barang" id="id_barang" 
 			        	autocomplete="off" onchange="showBarang(this.value)">
-
 	                  <datalist id="list_barang">
-	                  	@foreach ($data as $item)
-	                  		<option value="{{$item->id}}">{{$item->name}}</option>
+	                  	@foreach ($products as $product)
+	                  		<option value="{{$product->no_product}}">{{$product->name}}</option>
 	                  	@endforeach
 	                  </datalist>
-
 			      </div>
 			      <div class="col-md-1">
 			      	<a href="javascript:;" class="btn btn-primary" 
-			      		data-toggle="modal" 
-			      		data-target="#modal-cari-barang">
+			      		data-toggle="modal">
 			      		<i class="fa fa-search"></i></a>
 		          </div>
 			    </div>
+
 			    <div id="barang">
+
 				    <div class="form-group">
-				      <label class="control-label col-md-3" 
-				      	for="nama_barang">Nama Barang :</label>
+				      <label class="control-label col-md-3" for="nama_barang">Nama Barang :</label>
 				      <div class="col-md-8">
-				        <input type="text" class="form-control reset" 
-				        	name="name" id="name" 
-				        	readonly="readonly">
+				        <input type="text" class="form-control reset" name="nama_barang" id="nama_barang" readonly="readonly">
 				      </div>
 				    </div>
+
 				    <div class="form-group">
 				      <label class="control-label col-md-3" 
 				      	for="harga_barang">Harga (Rp) :</label>
 				      <div class="col-md-8">
 				        <input type="text" class="form-control reset" 
-				        	name="price" id="price" 
+				        	name="harga_barang" id="harga_barang" 
 				        	readonly="readonly">
 				      </div>
 				    </div>
@@ -258,43 +253,59 @@
 	</div>
 
 	<!-- Modal selesai -->
-  <div class="modal fade" id="modal-cari-barang" role="dialog">
-    <div class="modal-dialog modal-lg">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal cari barang dengan AJAX</h4>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-          	<div class="form-group has-primary has-feedback">
-            	<input type="text" class="form-control input-lg" placeholder="Search for...">
-            	<span class="glyphicon glyphicon-search form-control-feedback"></span>
-          	</div>
-          	<table class="table">
-          		<thead>
-          			<tr>
-          				<th>asd</th>
-          				<th>asd</th>
-          				<th>asd</th>
-          				<th>asd</th>
-          				<th>asd</th>
-          				<th>asd</th>
-          			</tr>
-          		</thead>
-          	</table>
-		  </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
+<script type="text/javascript">
+	function showBarang(str) 
+	{
 
+	    if (str == "") {
+	        $('#nama_barang').val('');
+	        $('#harga_barang').val('');
+	        $('#qty').val('');
+	        $('#sub_total').val('');
+	        $('#reset').hide();
+	        return;
+	    } else { 
+	      if (window.XMLHttpRequest) {
+	          // code for IE7+, Firefox, Chrome, Opera, Safari
+	           xmlhttp = new XMLHttpRequest();
+	      } else {
+	          // code for IE6, IE5
+	          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	      }
+	      xmlhttp.onreadystatechange = function() {
+	           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	              document.getElementById("barang").innerHTML = 
+	              xmlhttp.responseText;
+	          }
+	      }
+	      xmlhttp.open("GET", "getBarang/"+str,true);
+	      xmlhttp.send();
+	    }
+	}
+
+	function subTotal(qty)
+	{
+
+		var harga = $('#harga_barang').val().replace(".", "").replace(".", "");
+
+		$('#sub_total').val(convertToRupiah(harga*qty));
+	}
+
+	function convertToRupiah(angka)
+	{
+
+	    var rupiah = '';    
+	    var angkarev = angka.toString().split('').reverse().join('');
+	    
+	    for(var i = 0; i < angkarev.length; i++) 
+	      if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
+	    
+	    return rupiah.split('',rupiah.length-1).reverse().join('');
 	
+	}
+	
+</script>
+
+
 </body>
 </html>
