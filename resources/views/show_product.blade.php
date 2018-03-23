@@ -25,6 +25,7 @@
         #header h1{
             margin: 0;
             padding: 15px;
+            font-family: sans-serif;
         }
         #footer{
             padding: 5px;

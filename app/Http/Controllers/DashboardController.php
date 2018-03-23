@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\ProductsOrder;
+use App\Models\Order;
+use Auth;
 
 class DashboardController extends Controller
 {
     public function index(){
+    	$random = str_random(40);
     	$findproduct=Product::all();
 		return view('dashboard')->with('products', $findproduct);
     }
@@ -78,4 +82,39 @@ class DashboardController extends Controller
 
 	    }
 	}
+
+	public function simpanOrder(Request $request){
+            $order = new Order();
+	        $order->total = $request->total;
+	        $order->user_id= Auth::user()->id;
+	        $order->save();
+	       
+	       $id_input = $request->id_input;
+	       foreach ($id_input as $key => $idinput) {
+	       	$productid[] = $idinput;
+	       }
+	       $quantity_input = $request->quantity_input;
+	       foreach ($quantity_input as $key => $quantity) {
+	       	$qty[] = $quantity;
+	       }
+
+	       $subtotal_input = $request->subtotal_input;
+	       foreach ($subtotal_input as $key => $sub_total) {
+	       	$subtotal[] = $sub_total;
+	       }
+
+	       $order_products = new ProductsOrder;
+	       $order_products->order_id = $order->id;
+	       $order_products->product_id = $productid;
+	       $order_products->quantity = $qty;
+	       $order_products->subtotal = $subtotal;
+	       $order_products->save();
+
+
+
+
+
+
+	}
 }
+

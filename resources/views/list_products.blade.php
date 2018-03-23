@@ -26,6 +26,7 @@
       #header h1{
         margin: 0;
         padding: 15px;
+        font-family: sans-serif;
       }
       #footer{
         padding: 5px;
@@ -114,8 +115,8 @@
       <ul class="nav nav-pills nav-stacked">
         <li><a href="/"><i class="fa fa-shopping-cart"></i> Tambah Penjualan</a></li>
         <li><a href="#"><i class="fa fa-list-ul"></i> List Data Penjualan</a></li>
-        <li><a href="/newproduct"><i class="fa fa-cubes"></i> Tambah Barang</a></li>
-        <li class="active"><a href="/ListProducts"><i class="fa fa-list-ul"></i> List Data Barang</a></li>
+        <li><a href="/newproduct"><i class="fa fa-cubes"></i> Tambah Produk</a></li>
+        <li class="active"><a href="/ListProducts"><i class="fa fa-list-ul"></i> List Produk</a></li>
       </ul>
       </div>
     </div>
@@ -130,7 +131,7 @@
         <thead>
           <tr>
               <th>Kode Produk</th>
-              <th>Nama Barang</th>
+              <th>Nama Produk</th>
               <th>Harga</th>
               <th>Aksi</th>
           </tr>

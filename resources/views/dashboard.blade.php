@@ -25,6 +25,7 @@
 	  	#header h1{
 	  		margin: 0;
 	  		padding: 15px;
+	  		font-family: sans-serif;
 	  	}
 	  	#footer{
 	  		padding: 5px;
@@ -135,9 +136,7 @@
 			    <div class="form-group">
 			      <label class="control-label col-md-3" for="no_product">Kode Produk :</label>
 			      <div class="col-md-5">
-			         <input list="list_barang" class="form-control reset" 
-			        	placeholder="Isi id..." name="id_barang" id="id_barang" 
-			        	autocomplete="off" onchange="showBarang(this.value)">
+			         <input list="list_barang" class="form-control reset" placeholder="Isi id..." name="id_barang" id="id_barang" autocomplete="off" onchange="showBarang(this.value)">
 	                  <datalist id="list_barang">
 	                  	@foreach ($products as $product)
 	                  		<option value="{{$product->no_product}}">{{$product->name}}</option>
@@ -154,7 +153,7 @@
 			    <div id="barang">
 
 				    <div class="form-group">
-				      <label class="control-label col-md-3" for="nama_barang">Nama Barang :</label>
+				      <label class="control-label col-md-3" for="nama_barang">Nama Produk:</label>
 				      <div class="col-md-8">
 				        <input type="text" class="form-control reset" name="nama_barang" id="nama_barang" readonly="readonly">
 				      </div>
@@ -199,6 +198,9 @@
 			      <!-- </div>
 			    </div> --><!-- end panel-->
 	      	</div><!-- end col-md-8 -->
+	      	</form>
+	      	<form id="save_order" method="POST" action="simpanOrder">
+	      	@csrf
 	      	<div class="col-md-4 mb">
 				<div class="col-md-12">
 				  	<div class="form-group">
@@ -221,8 +223,8 @@
 				    </div>
 				</div>
 	      	</div><!-- end col-md-4 -->
-	      	</form>
-
+	      	
+	      	
 	      	<table id="table_transaksi" class="table table-striped 
 	      		table-bordered">
 				<thead>
@@ -240,14 +242,15 @@
 				</tbody>
 			</table>
 			<div class="col-md-offset-8" style="margin-top:20px">
-				<button type="button" class="btn btn-primary btn-lg" 
-				id="selesai" disabled="disabled" 
-				onclick="alert('Belum ada action untuk save pejualan')">
+				<button type="submit" class="btn btn-primary btn-lg" 
+				id="selesai">
 				Selesai <i class="fa fa-angle-double-right"></i></button>
 			</div>
 	      </div>
 	    </div>
 	</div><!-- end col-md-9 -->
+	</form>
+	
 	<div class="col-md-12" id="footer">
 		<small>Copyright <?= date('Y') ?>, All Right Reserved.</small>
 	</div>
@@ -286,9 +289,9 @@
 	function subTotal(qty)
 	{
 
-		var harga = $('#harga_barang').val().replace(".", "").replace(".", "");
+		var harga = $('#harga_barang').val();
 
-		$('#sub_total').val(convertToRupiah(harga*qty));
+		$('#sub_total').val(harga*qty);
 	}
 
 	function convertToRupiah(angka)
@@ -303,9 +306,63 @@
 	    return rupiah.split('',rupiah.length-1).reverse().join('');
 	
 	}
-	
-</script>
 
+
+  	function addbarang(){ 
+  	
+  	var idbarang = $("#id_barang").val();
+  	var namabarang = $("#nama_barang").val();
+  	var hargabarang = $("#harga_barang").val();
+  	var qty = $("#qty").val();
+  	var subtotal = $("#sub_total").val();
+	$("#table_transaksi tbody").append("<tr><td><input type='hidden' name='no_input' value=''></td><td><input type='hidden' name='id_input' value='"+ idbarang +"'>"+ idbarang +"</td><td><input type='hidden' name='name_input' value='"+ namabarang +"'>"+ namabarang +"</td><td><input type='hidden' name='price_input' value='"+ hargabarang +"'>"+ hargabarang +"</td><td><input type='hidden' name='quantity_input' value='"+ qty +"'>"+ qty +"</td><td><input type='hidden' name='subtotal_input' value='"+ subtotal +"'>"+ subtotal +"</td><td>DELETE</td></tr>");
+	showTotal();
+    showKembali($('#bayar').val());
+          //mereset semua value setelah btn tambah ditekan
+    $('.reset').val('');
+	}
+
+	function showTotal()
+    {
+
+    	var total = $('#total').val();
+
+    	var sub_total = $('#sub_total').val();
+
+    	$('#total').val(Number(total)+Number(sub_total));
+
+  	}
+
+  	//maskMoney
+	$('.uang').maskMoney({
+		thousands:'.', 
+		decimal:',', 
+		precision:0
+	});
+
+	function showKembali(str)
+  	{
+	    var total = $('#total').val().replace(".", "").replace(".", "");
+	    var bayar = str.replace(".", "").replace(".", "");
+	    var kembali = bayar-total;
+
+	    $('#kembali').val(convertToRupiah(kembali));
+
+	    if (kembali >= 0) {
+	      $('#selesai').removeAttr("disabled");
+	    }else{
+	      $('#selesai').attr("disabled","disabled");
+	    };
+
+	    if (total == '0') {
+	      $('#selesai').attr("disabled","disabled");
+	    };
+  	}
+
+
+</script>
 
 </body>
 </html>
+
+ 

@@ -9,5 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductsOrder extends Model
 {
-	
+	protected $table = 'products_orders';
+	public function order()
+    {
+        return $this->belongsTo('App\Models\Order');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+    }
 }

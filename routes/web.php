@@ -19,6 +19,7 @@ Route::get('/deleteproduct_proses/{id}', 'NewProductController@deleteProduct')->
 Route::post('/newproduct_proses', 'NewProductController@store')->middleware('auth');
 Route::get('/', 'DashboardController@index')->middleware('auth');
 Route::get('/getBarang/{no_product}', 'DashboardController@getBarang');
+Route::post('/simpanOrder', 'DashboardController@simpanOrder')->middleware('auth');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
