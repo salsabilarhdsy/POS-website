@@ -20,6 +20,7 @@ class DashboardController extends Controller
     	$barang = Product::where('no_product', $no_product)->first();
     	if ($barang) {
 			echo '
+			<input type="hidden" class="form-control reset" name="id_produk" id="id_produk" readonly="readonly" value="'.$barang->id.'">
 			<div class="form-group">
 				      <label class="control-label col-md-3" 
 				      	for="nama_barang">Nama Barang :</label>
@@ -88,33 +89,23 @@ class DashboardController extends Controller
 	        $order->total = $request->total;
 	        $order->user_id= Auth::user()->id;
 	        $order->save();
-	       
-	       $id_input = $request->id_input;
-	       foreach ($id_input as $key => $idinput) {
-	       	$productid[] = $idinput;
-	       }
-	       $quantity_input = $request->quantity_input;
-	       foreach ($quantity_input as $key => $quantity) {
-	       	$qty[] = $quantity;
-	       }
 
-	       $subtotal_input = $request->subtotal_input;
-	       foreach ($subtotal_input as $key => $sub_total) {
-	       	$subtotal[] = $sub_total;
-	       }
+			$product_id =  $request->id_input;
+		    $quantity =  $request->quantity_input;
+		    $subtotal =  $request->subtotal_input;
+		    $order_id = $order->id;
 
-	       $order_products = new ProductsOrder;
-	       $order_products->order_id = $order->id;
-	       $order_products->product_id = $productid;
-	       $order_products->quantity = $qty;
-	       $order_products->subtotal = $subtotal;
-	       $order_products->save();
+		    $count = count($product_id);
 
 
-
-
-
-
-	}
+			for($i = 0; $i < $count; $i++){
+			    $objModel = new ProductsOrder();
+			    $objModel->order_id = $order_id;
+			    $objModel->product_id = $product_id[$i];
+			    $objModel->quantity = $quantity[$i];
+			    $objModel->subtotal = $subtotal[$i];
+			    $objModel->save();
+			}
+	return redirect('/');
 }
-
+}

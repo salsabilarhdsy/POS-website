@@ -309,13 +309,16 @@
 
 
   	function addbarang(){ 
-  	
+	    
   	var idbarang = $("#id_barang").val();
+  	var idproduk = $("#id_produk").val();
   	var namabarang = $("#nama_barang").val();
   	var hargabarang = $("#harga_barang").val();
   	var qty = $("#qty").val();
   	var subtotal = $("#sub_total").val();
-	$("#table_transaksi tbody").append("<tr><td><input type='hidden' name='no_input' value=''></td><td><input type='hidden' name='id_input' value='"+ idbarang +"'>"+ idbarang +"</td><td><input type='hidden' name='name_input' value='"+ namabarang +"'>"+ namabarang +"</td><td><input type='hidden' name='price_input' value='"+ hargabarang +"'>"+ hargabarang +"</td><td><input type='hidden' name='quantity_input' value='"+ qty +"'>"+ qty +"</td><td><input type='hidden' name='subtotal_input' value='"+ subtotal +"'>"+ subtotal +"</td><td>DELETE</td></tr>");
+
+
+	$("#table_transaksi tbody").append("<tr><td><input type='hidden' name='no_input' value=''></td><td><input type='hidden' name='id_input[]' value='"+ idproduk +"'>"+ idbarang +"</td><td><input type='hidden' name='name_input[]' value='"+ namabarang +"'>"+ namabarang +"</td><td><input type='hidden' name='price_input[]' value='"+ hargabarang +"'>"+ hargabarang +"</td><td><input type='hidden' name='quantity_input[]' value='"+ qty +"'>"+ qty +"</td><td><input type='hidden' name='subtotal_input[]' value='"+ subtotal +"'>"+ subtotal +"</td><td><button onclick='DeleteRowOfProductTable(productID)'>DELETE</button></td></tr>");
 	showTotal();
     showKembali($('#bayar').val());
           //mereset semua value setelah btn tambah ditekan
@@ -359,6 +362,9 @@
 	    };
   	}
 
+  	function DeleteRowOfProductTable(){
+    
+	}
 
 </script>
 
