@@ -15,4 +15,9 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Order','products_orders');
     }
+
+    public function category()
+    {
+    	return $this->belongsTo('App\Models\Category');
+    }
 }

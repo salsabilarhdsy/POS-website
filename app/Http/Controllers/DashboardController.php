@@ -16,52 +16,45 @@ class DashboardController extends Controller
 		return view('dashboard')->with('products', $findproduct);
     }
 
-    public function getBarang($no_product){
-    	$barang = Product::where('no_product', $no_product)->first();
+    public function getBarang($name){
+    	$barang = Product::where('name', $name)->first();
     	if ($barang) {
 			echo '
-			<input type="hidden" class="form-control reset" name="id_produk" id="id_produk" readonly="readonly" value="'.$barang->id.'">
 			<div class="form-group">
-				      <label class="control-label col-md-3" 
-				      	for="nama_barang">Nama Barang :</label>
-				      <div class="col-md-8">
-				        <input type="text" class="form-control reset" 
-				        	name="nama_barang" id="nama_barang" 
-				        	value="'.$barang->name.'"
-				        	readonly="readonly">
-				      </div>
-				    </div>
-				    <div class="form-group">
-				      <label class="control-label col-md-3" 
-				      	for="harga_barang">Harga (Rp) :</label>
-				      <div class="col-md-8">
-				        <input type="text" class="form-control reset" id="harga_barang" name="harga_barang" 
-				        	value="'.$barang->price.'" readonly="readonly">
-				      </div>
-				    </div>
-				    <div class="form-group">
-				      <label class="control-label col-md-3" 
-				      	for="qty">Quantity :</label>
-				      <div class="col-md-4">
-				        <input type="number" class="form-control reset" 
-				        	name="qty" placeholder="Isi qty..." autocomplete="off" 
-				        	id="qty" onchange="subTotal(this.value)" 
-				        	onkeyup="subTotal(this.value)" min="0">
-				      </div>
-				    </div>
+		    	<div class="col-md-8">
+			    	<input type="hidden" class="form-control reset" name="no_product" id="no_product" readonly="readonly" value="'.$barang->no_product.'">
+				</div>
+			</div>
+
+		    <div class="form-group">
+		      <label class="control-label col-md-3" 
+		      	for="harga_barang">Harga (Rp) :</label>
+		      <div class="col-md-8">
+		        <input type="text" class="form-control reset" id="harga_barang" name="harga_barang" 
+		        	value="'.$barang->price.'" readonly="readonly">
+		      </div>
+		    </div>
+		    <div class="form-group">
+		      <label class="control-label col-md-3" 
+		      	for="qty">Quantity :</label>
+		      <div class="col-md-4">
+		        <input type="number" class="form-control reset" 
+		        	name="qty" placeholder="Isi qty..." autocomplete="off" 
+		        	id="qty" onchange="subTotal(this.value)" 
+		        	onkeyup="subTotal(this.value)" min="1">
+		      </div>
+		    </div>
 				    ';
 	    }else{
 
-	    	echo '<div class="form-group">
-				      <label class="control-label col-md-3" 
-				      	for="nama_barang">Nama Barang :</label>
-				      <div class="col-md-8">
-				        <input type="text" class="form-control reset" 
-				        	name="nama_barang" id="nama_barang" 
-				        	readonly="readonly">
-				      </div>
-				    </div>
-				    <div class="form-group">
+	    	echo '  
+	    		<div class="form-group">
+		    	<div class="col-md-8">
+			    	<input type="hidden" class="form-control reset" name="no_product" id="no_product" readonly="readonly">
+				</div>
+				</div>
+
+	    			<div class="form-group">
 				      <label class="control-label col-md-3" 
 				      	for="harga_barang">Harga (Rp) :</label>
 				      <div class="col-md-8">
@@ -91,6 +84,8 @@ class DashboardController extends Controller
 	        $order->save();
 
 			$product_id =  $request->id_input;
+			$product_name =  $request->name_input;
+			$product_price =  $request->price_input;
 		    $quantity =  $request->quantity_input;
 		    $subtotal =  $request->subtotal_input;
 		    $order_id = $order->id;
@@ -102,6 +97,8 @@ class DashboardController extends Controller
 			    $objModel = new ProductsOrder();
 			    $objModel->order_id = $order_id;
 			    $objModel->product_id = $product_id[$i];
+			    $objModel->product_name = $product_name[$i];
+			    $objModel->product_price = $product_price[$i];
 			    $objModel->quantity = $quantity[$i];
 			    $objModel->subtotal = $subtotal[$i];
 			    $objModel->save();

@@ -111,9 +111,11 @@
           <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
               <li><a href="/"><i class="fa fa-shopping-cart"></i> Tambah Penjualan</a></li>
-              <li><a href="#"><i class="fa fa-list-ul"></i> List Data Penjualan</a></li>
+              <li><a href="/listorders"><i class="fa fa-list-ul"></i> Data Penjualan</a></li>
               <li class="active"><a href="/newproduct"><i class="fa fa-cubes"></i> Tambah Barang</a></li>
-              <li><a href="/ListProducts"><i class="fa fa-list-ul"></i> List Data Barang</a></li>
+              <li><a href="/ListProducts"><i class="fa fa-list-ul"></i> Data Barang</a></li>
+              <li><a href="/newcategory"><i class="fa fa-cubes"></i> Tambah Kategori</a></li>
+              <li><a href="/ListCategory"><i class="fa fa-list-ul"></i> Data Kategori</a></li>
             </ul>
           </div>
         </div>
@@ -129,43 +131,40 @@
                     @endforeach
                 </ul>
             </div>
-         @endif
+            @endif
             <form class="form-horizontal" id="form_transaksi" role="form" action="/newproduct_proses" method="POST">
             @csrf
             <div class="col-md-8">
-            
-                    <div class="form-group">
-                        <label class="control-label col-md-3" for="nama_barang">Kode Produk :</label>
+                     <div class="form-group">
+                        <label class="control-label col-md-3" for="nama_barang">Kategori :</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control reset" name="kodeproduk" id="kodeproduk">
+                            <select class="form-control reset" name="category_id" id="category_id" onchange="showCategory(this.value)">
+                                <option value="" >Pilih Kategori</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->category}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input class="form-control reset" name="kodeproduk" id="kodeproduk" readonly="readonly" type="hidden">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-3" for="nama_barang">Nama Produk :</label>
+                        <label class="control-label col-md-3" for="nama_barang">Nama Barang :</label>
                         <div class="col-md-8">
                             <input type="text" class="form-control reset" name="namaproduk" id="namaproduk">
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3" for="nama_barang">Kategori :</label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control reset" name="kategori" id="kategori">
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-3" for="nama_barang">Harga(Rp.) :</label>
                         <div class="col-md-8">
                             <input type="text" class="form-control reset" name="hargaproduk" id="hargaproduk">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3" for="nama_barang">Deskripsi :</label>
-                        <div class="col-md-8">
-                            <textarea type="text" class="form-control reset" name="deskripsi" id="deskripsi"></textarea>
                         </div>
                     </div>
 
@@ -183,6 +182,32 @@
          
 
     <!-- Modal selesai -->
+    <script type="text/javascript">
+        function showCategory(str) 
+        {
+
+        if (str == "") {
+            $('#kodeproduk').val('');
+            return;
+        } else { 
+          if (window.XMLHttpRequest) {
+              // code for IE7+, Firefox, Chrome, Opera, Safari
+               xmlhttp = new XMLHttpRequest();
+          } else {
+              // code for IE6, IE5
+              xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+          }
+          xmlhttp.onreadystatechange = function() {
+               if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                  document.getElementById("kodeproduk").value = 
+                  xmlhttp.responseText;
+              }
+          }
+          xmlhttp.open("GET", "getCategory/"+str,true);
+          xmlhttp.send();
+        }
+        }
+    </script>
   
 
 </body>

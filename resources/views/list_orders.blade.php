@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="assets/bootstrap-3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/datatables/css/dataTables.bootstrap.css">
-
-    <script src="assets/jquery-2.1.4.min.js') ?>"></script>
+    <script src="assets/jquery-2.1.4.min.js"></script>
     <script src="assets/bootstrap-3.3.5/js/bootstrap.min.js"></script>
   <script src="assets/datatables/js/jquery.dataTables.min.js"></script>
   <script src="assets/datatables/js/dataTables.bootstrap.js"></script>
@@ -99,9 +98,6 @@
       text-decoration-style: none;
       font-size: 16px;
     }
-    .button{
-      margin: 3px;
-    }
     </style>
 </head>
 <body>
@@ -114,9 +110,9 @@
       <div class="panel-body">
       <ul class="nav nav-pills nav-stacked">
         <li><a href="/"><i class="fa fa-shopping-cart"></i> Tambah Penjualan</a></li>
-        <li><a href="/listorders"><i class="fa fa-list-ul"></i> Data Penjualan</a></li>
+        <li class="active"><a href="/listorders"><i class="fa fa-list-ul"></i> Data Penjualan</a></li>
         <li><a href="/newproduct"><i class="fa fa-cubes"></i> Tambah Barang</a></li>
-        <li class="active"><a href="/ListProducts"><i class="fa fa-list-ul"></i> Data Barang</a></li>
+        <li><a href="/ListProducts"><i class="fa fa-list-ul"></i> Data Barang</a></li>
         <li><a href="/newcategory"><i class="fa fa-cubes"></i> Tambah Kategori</a></li>
         <li><a href="/ListCategory"><i class="fa fa-list-ul"></i> Data Kategori</a></li>
       </ul>
@@ -127,30 +123,51 @@
     <div class="panel panel-default">
      <div class="panel-body">
       <form class="form-horizontal" id="form_transaksi" role="form">
+          <div class="col-md-12">
+          <!-- <div class="panel panel-default">
+          <div class="panel-body"> -->
+            <!-- <div class="form-group">
+            <label class="control-label col-md-4" 
+              for="tgl_transaksi">Tgl.Transaksi :</label>
+            <div class="col-md-5">
+              <input type="text" class="form-control" 
+                name="tgl_transaksi" value="<?= date('d-m-Y') ?>" 
+                readonly="readonly">
+            </div>
+          </div> -->
 
           <table id="table_transaksi" class="table table-striped 
             table-bordered">
         <thead>
           <tr>
+              <th>No Order</th>
               <th>Kode Barang</th>
               <th>Nama Barang</th>
-              <th>Harga</th>
-              <th>Aksi</th>
+              <th>Harga Satuan</th>
+              <th>Quantity</th>
+              <th>Sub-Total</th>
+              <th>Tanggal Order</th>
           </tr>
-          @foreach($data as $item)
-            <tr> 
-              <td>{{$item->no_product}}</td>
-              <td>{{$item->name}}</td>
-              <td>Rp. {{$item->price}}</td>
-              <td><a href="/editproduct/{{$item->id}}"><button type="button" class="btn btn-primary" class="button">Edit</button></a>
-              <a href="/deleteproduct_proses/{{$item->id}}"><button type="button" class="btn btn-primary" class="button">Delete</button></a></td>
+          @foreach ($data as $item)
+          <tr>
+          
+              <td>{{$item->id}}</td>
+              <td>{{$item->product_id}}</td>
+              <td>{{$item->product_name}}</td>
+              <td>{{$item->product_price}}</td>
+              <td>{{$item->quantity}}</td>
+              <td>{{$item->subtotal}}</td>
+              <td>{{$item->created_at}}</td>
           </tr>
-          @endforeach
+           @endforeach
         </thead>
         <tbody>
         </tbody>
       </table>
-      
-
-</body>
-</html>
+    </div>
+  </form>
+  </div>
+  </div>
+  </div>
+  </body>
+  </html>

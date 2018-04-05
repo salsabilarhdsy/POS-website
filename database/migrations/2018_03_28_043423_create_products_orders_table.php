@@ -14,17 +14,18 @@ class CreateProductsOrdersTable extends Migration
     public function up()
     {
         Schema::create('products_orders', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('order_id')->unsigned();
-            $table->integer('product_id')->unsigned();
+            $table->string('product_id');
+            $table->string('product_name');
+            $table->integer('product_price');
             $table->integer('quantity');
             $table->integer('subtotal');
             $table->timestamps();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
-
    
 
     /**

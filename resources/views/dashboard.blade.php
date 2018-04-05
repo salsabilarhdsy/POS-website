@@ -110,9 +110,11 @@
 		  <div class="panel-body">
 			<ul class="nav nav-pills nav-stacked">
 			  <li class="active"><a href=""><i class="fa fa-shopping-cart"></i> Tambah Penjualan</a></li>
-			  <li><a href="#"><i class="fa fa-list-ul"></i> List Data Penjualan</a></li>
+			  <li><a href="/listorders"><i class="fa fa-list-ul"></i> Data Penjualan</a></li>
 			  <li><a href="/newproduct"><i class="fa fa-cubes"></i> Tambah Barang</a></li>
-			  <li><a href="/ListProducts"><i class="fa fa-list-ul"></i> List Data Barang</a></li>
+			  <li><a href="/ListProducts"><i class="fa fa-list-ul"></i> Data Barang</a></li>
+			  <li><a href="/newcategory"><i class="fa fa-cubes"></i> Tambah Kategori</a></li>
+              <li><a href="/ListCategory"><i class="fa fa-list-ul"></i> Data Kategori</a></li>
 			</ul>
 		  </div>
 		</div>
@@ -134,30 +136,23 @@
 			      </div>
 			    </div> -->
 			    <div class="form-group">
-			      <label class="control-label col-md-3" for="no_product">Kode Produk :</label>
+			      <label class="control-label col-md-3" for="name">Nama Barang :</label>
 			      <div class="col-md-5">
-			         <input list="list_barang" class="form-control reset" placeholder="Isi id..." name="id_barang" id="id_barang" autocomplete="off" onchange="showBarang(this.value)">
+			         <input list="list_barang" class="form-control reset" placeholder="Isi nama..." name="nama_barang" id="nama_barang" autocomplete="off" onchange="showBarang(this.value)">
 	                  <datalist id="list_barang">
 	                  	@foreach ($products as $product)
-	                  		<option value="{{$product->no_product}}">{{$product->name}}</option>
+	                  		<option value="{{$product->name}}">{{$product->no_product}}</option>
 	                  	@endforeach
 	                  </datalist>
 			      </div>
-			      <div class="col-md-1">
-			      	<a href="javascript:;" class="btn btn-primary" 
-			      		data-toggle="modal">
-			      		<i class="fa fa-search"></i></a>
-		          </div>
 			    </div>
 
 			    <div id="barang">
-
-				    <div class="form-group">
-				      <label class="control-label col-md-3" for="nama_barang">Nama Produk:</label>
-				      <div class="col-md-8">
-				        <input type="text" class="form-control reset" name="nama_barang" id="nama_barang" readonly="readonly">
-				      </div>
-				    </div>
+			    	<div class="form-group">
+			    	<div class="col-md-8">
+				    	<input type="hidden" class="form-control reset" name="no_product" id="no_product" readonly="readonly" >
+					</div>
+					</div>
 
 				    <div class="form-group">
 				      <label class="control-label col-md-3" 
@@ -174,7 +169,7 @@
 				      <div class="col-md-4">
 				        <input type="number" class="form-control reset" 
 				        	autocomplete="off" onchange="subTotal(this.value)" 
-				        	onkeyup="subTotal(this.value)" id="qty" min="0" 
+				        	onkeyup="subTotal(this.value)" id="qty" min="1" 
 				        	name="qty" placeholder="Isi qty...">
 				      </div>
 				    </div>
@@ -191,7 +186,7 @@
 			    <div class="form-group">
 			    	<div class="col-md-offset-3 col-md-3">
 			      		<button type="button" class="btn btn-primary" 
-			      		id="tambah" onclick="addbarang()">
+			      		id="tambah" onclick="addbarang()" disabled="disabled">
 			      		  <i class="fa fa-cart-plus"></i> Tambah</button>
 			    	</div>
 			    </div>
@@ -229,13 +224,11 @@
 	      		table-bordered">
 				<thead>
 				 	<tr>
-					   	<th>No</th>
-					   	<th>Id Barang</th>
+					   	<th>Kode Barang</th>
 					   	<th>Nama Barang</th>
 					   	<th>Harga</th>
 					   	<th>Quantity</th>
 					   	<th>Sub-Total</th>
-					   	<th>Aksi</th>
 				 	</tr>
 				</thead>
 				<tbody>
@@ -243,7 +236,7 @@
 			</table>
 			<div class="col-md-offset-8" style="margin-top:20px">
 				<button type="submit" class="btn btn-primary btn-lg" 
-				id="selesai">
+				id="selesai" disabled="disabled">
 				Selesai <i class="fa fa-angle-double-right"></i></button>
 			</div>
 	      </div>
@@ -261,6 +254,8 @@
 	{
 
 	    if (str == "") {
+	    	$('#id_product').val('');
+	    	$('#no_product').val('');
 	        $('#nama_barang').val('');
 	        $('#harga_barang').val('');
 	        $('#qty').val('');
@@ -288,10 +283,10 @@
 
 	function subTotal(qty)
 	{
-
 		var harga = $('#harga_barang').val();
-
+		if (harga >0 ){
 		$('#sub_total').val(harga*qty);
+		$('#tambah').prop("disabled", false);}
 	}
 
 	function convertToRupiah(angka)
@@ -309,20 +304,20 @@
 
 
   	function addbarang(){ 
-	    
-  	var idbarang = $("#id_barang").val();
-  	var idproduk = $("#id_produk").val();
+	
+  	var no_product = $("#no_product").val();
   	var namabarang = $("#nama_barang").val();
   	var hargabarang = $("#harga_barang").val();
   	var qty = $("#qty").val();
   	var subtotal = $("#sub_total").val();
 
 
-	$("#table_transaksi tbody").append("<tr><td><input type='hidden' name='no_input' value=''></td><td><input type='hidden' name='id_input[]' value='"+ idproduk +"'>"+ idbarang +"</td><td><input type='hidden' name='name_input[]' value='"+ namabarang +"'>"+ namabarang +"</td><td><input type='hidden' name='price_input[]' value='"+ hargabarang +"'>"+ hargabarang +"</td><td><input type='hidden' name='quantity_input[]' value='"+ qty +"'>"+ qty +"</td><td><input type='hidden' name='subtotal_input[]' value='"+ subtotal +"'>"+ subtotal +"</td><td><button onclick='DeleteRowOfProductTable(productID)'>DELETE</button></td></tr>");
+	$("#table_transaksi tbody").append("<tr><td><input type='hidden' name='id_input[]' value='"+ no_product +"'>"+ no_product +"</td><td><input type='hidden' name='name_input[]' value='"+ namabarang +"'>"+ namabarang +"</td><td><input type='hidden' name='price_input[]' value='"+ hargabarang +"'>"+ hargabarang +"</td><td><input type='hidden' name='quantity_input[]' value='"+ qty +"'>"+ qty +"</td><td><input type='hidden' name='subtotal_input[]' value='"+ subtotal +"'>"+ subtotal +"</td></tr>");
 	showTotal();
     showKembali($('#bayar').val());
           //mereset semua value setelah btn tambah ditekan
     $('.reset').val('');
+    $('#tambah').prop("disabled", true)
 	}
 
 	function showTotal()
@@ -351,7 +346,7 @@
 
 	    $('#kembali').val(convertToRupiah(kembali));
 
-	    if (kembali >= 0) {
+	    if (total > 0 & kembali >= 0) {
 	      $('#selesai').removeAttr("disabled");
 	    }else{
 	      $('#selesai').attr("disabled","disabled");
@@ -362,9 +357,6 @@
 	    };
   	}
 
-  	function DeleteRowOfProductTable(){
-    
-	}
 
 </script>
 

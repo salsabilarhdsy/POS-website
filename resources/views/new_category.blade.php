@@ -4,14 +4,15 @@
     <title>Koperasi Siswa</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../assets/bootstrap-3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../assets/datatables/css/dataTables.bootstrap.css">
-    <script src="../assets/jquery-2.1.4.min.js"></script>
-    <script src="../assets/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-    <script src="../assets/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/datatables/js/dataTables.bootstrap.js"></script>
-    <script src="../assets/maskMoney/jquery.maskMoney.min.js"></script>
+    <link rel="stylesheet" href="assets/bootstrap-3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/datatables/css/dataTables.bootstrap.css">
+
+    <script src="assets/jquery-2.1.4.min.js"></script>
+    <script src="assets/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+    <script src="assets/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="assets/datatables/js/dataTables.bootstrap.js"></script>
+    <script src="assets/maskMoney/jquery.maskMoney.min.js"></script>
     <style type="text/css">
         #header,#footer{
             background-color: #337ab7;
@@ -96,7 +97,7 @@
             margin-top: -3%;
             margin-right: 1%;
             text-decoration-style: none;
-            font-size: 18px;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -112,8 +113,8 @@
               <li><a href="/"><i class="fa fa-shopping-cart"></i> Tambah Penjualan</a></li>
               <li><a href="/listorders"><i class="fa fa-list-ul"></i> Data Penjualan</a></li>
               <li><a href="/newproduct"><i class="fa fa-cubes"></i> Tambah Barang</a></li>
-              <li class="active"><a href="/ListProducts"><i class="fa fa-list-ul"></i> Data Barang</a></li>
-              <li><a href="/newcategory"><i class="fa fa-cubes"></i> Tambah Kategori</a></li>
+              <li><a href="/ListProducts"><i class="fa fa-list-ul"></i> Data Barang</a></li>
+              <li class="active"><a href="/newcategory"><i class="fa fa-cubes"></i> Tambah Kategori</a></li>
               <li><a href="/ListCategory"><i class="fa fa-list-ul"></i> Data Kategori</a></li>
             </ul>
           </div>
@@ -122,7 +123,7 @@
     <div class="col-md-9">
         <div class="panel panel-default">
          <div class="panel-body">
-         @if ($errors->any())
+            @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -130,40 +131,27 @@
                     @endforeach
                 </ul>
             </div>
-         @endif
-            <form class="form-horizontal" id="form_transaksi" role="form" action="/editproduct_proses/{{$data['findproduct']->id}}" method="POST">
+            @endif
+            <form class="form-horizontal" id="form_transaksi" role="form" action="/newcategory_proses" method="POST">
             @csrf
-            <div class="col-md-8">
                     <div class="form-group">
+                        <label class="control-label col-md-3" for="nama_barang">Kategori :</label>
                         <div class="col-md-8">
-                            <input type="hidden" class="form-control reset" name="category_id" id="category_id"
-                             value="{{$data['findproduct']->category['id']}}">
-                        </div>
-                    </div>
-            
-                    <div class="form-group">
-                        <div class="col-md-8">
-                            <input type="hidden" class="form-control reset" name="kodeproduk" id="kodeproduk" value="{{$data['findproduct']->no_product}}" readonly="readonly">
-                    </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3" for="nama_barang">Nama Barang :</label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control reset" name="namaproduk" id="namaproduk" value="{{$data['findproduct']->name}}">
+                            <input type="text" class="form-control reset" name="category" id="category">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-3" for="nama_barang">Harga(Rp.) :</label>
+                        <label class="control-label col-md-3" for="nama_barang">Kode Kategori :</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control reset" name="hargaproduk" id="hargaproduk" value="{{$data['findproduct']->price}}">
+                            <input type="text" class="form-control reset" name="codename" id="codename">
                         </div>
                     </div>
+
 
                    <div class="form-group">
                        <div class="col-md-offset-3 col-md-3">
-                            <button type="submit" class="btn btn-primary" id="tambah">Edit Produk</button>
+                            <button type="submit" class="btn btn-primary" id="tambah">Tambah</button>
                         </div>
                     </div>
 
@@ -175,7 +163,5 @@
          
 
     <!-- Modal selesai -->
-  
-
 </body>
 </html>

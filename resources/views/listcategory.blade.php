@@ -47,7 +47,7 @@
       font-size: 20px;
       font-weight: 300;
     }
-    table th,table td{
+    table th{
       text-align: center;
     }
     form{
@@ -116,9 +116,9 @@
         <li><a href="/"><i class="fa fa-shopping-cart"></i> Tambah Penjualan</a></li>
         <li><a href="/listorders"><i class="fa fa-list-ul"></i> Data Penjualan</a></li>
         <li><a href="/newproduct"><i class="fa fa-cubes"></i> Tambah Barang</a></li>
-        <li class="active"><a href="/ListProducts"><i class="fa fa-list-ul"></i> Data Barang</a></li>
+        <li><a href="/ListProducts"><i class="fa fa-list-ul"></i> Data Barang</a></li>
         <li><a href="/newcategory"><i class="fa fa-cubes"></i> Tambah Kategori</a></li>
-        <li><a href="/ListCategory"><i class="fa fa-list-ul"></i> Data Kategori</a></li>
+        <li class="active"><a href="/ListCategory"><i class="fa fa-list-ul"></i> Data Kategori</a></li>
       </ul>
       </div>
     </div>
@@ -132,18 +132,16 @@
             table-bordered">
         <thead>
           <tr>
-              <th>Kode Barang</th>
-              <th>Nama Barang</th>
-              <th>Harga</th>
-              <th>Aksi</th>
+              <th>Kategori</th>
+              <th>Kode Kategori</th>
+              <th>Action</th>
           </tr>
           @foreach($data as $item)
             <tr> 
-              <td>{{$item->no_product}}</td>
-              <td>{{$item->name}}</td>
-              <td>Rp. {{$item->price}}</td>
-              <td><a href="/editproduct/{{$item->id}}"><button type="button" class="btn btn-primary" class="button">Edit</button></a>
-              <a href="/deleteproduct_proses/{{$item->id}}"><button type="button" class="btn btn-primary" class="button">Delete</button></a></td>
+              <td>{{$item->category}}</td>
+              <td>{{$item->code_name}}</td>
+              <td>
+              <a href="/deletecategory_proses/{{$item->id}}"><center><button type="button" class="btn btn-primary" class="button">Delete</button></center></a></td>
           </tr>
           @endforeach
         </thead>
