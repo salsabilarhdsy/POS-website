@@ -26,6 +26,7 @@ Route::get('/newcategory', 'CategoryController@category')->middleware('auth');
 Route::post('/newcategory_proses', 'CategoryController@newcategory')->middleware('auth');
 Route::get('/ListCategory', 'CategoryController@ListCategory')->middleware('auth');
 Route::get('/deletecategory_proses/{id}', 'CategoryController@deletecategory')->middleware('auth');
+Route::get('/invoice', 'DashboardController@invoice')->middleware('auth');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

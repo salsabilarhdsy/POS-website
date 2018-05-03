@@ -289,19 +289,6 @@
 		$('#tambah').prop("disabled", false);}
 	}
 
-	function convertToRupiah(angka)
-	{
-
-	    var rupiah = '';    
-	    var angkarev = angka.toString().split('').reverse().join('');
-	    
-	    for(var i = 0; i < angkarev.length; i++) 
-	      if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
-	    
-	    return rupiah.split('',rupiah.length-1).reverse().join('');
-	
-	}
-
 
   	function addbarang(){ 
 	
@@ -331,20 +318,15 @@
 
   	}
 
-  	//maskMoney
-	$('.uang').maskMoney({
-		thousands:'.', 
-		decimal:',', 
-		precision:0
-	});
+  
 
-	function showKembali(str)
+	function showKembali()
   	{
-	    var total = $('#total').val().replace(".", "").replace(".", "");
-	    var bayar = str.replace(".", "").replace(".", "");
+	    var total = $('#total').val();
+	    var bayar = $('#bayar').val();
 	    var kembali = bayar-total;
 
-	    $('#kembali').val(convertToRupiah(kembali));
+	    $('#kembali').val(kembali);
 
 	    if (total > 0 & kembali >= 0) {
 	      $('#selesai').removeAttr("disabled");
@@ -356,6 +338,7 @@
 	      $('#selesai').attr("disabled","disabled");
 	    };
   	}
+
 
 
 </script>

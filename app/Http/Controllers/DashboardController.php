@@ -7,6 +7,9 @@ use App\Models\Product;
 use App\Models\ProductsOrder;
 use App\Models\Order;
 use Auth;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\EscposImage;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 
 class DashboardController extends Controller
 {
@@ -83,26 +86,35 @@ class DashboardController extends Controller
 	        $order->user_id= Auth::user()->id;
 	        $order->save();
 
-			$product_id =  $request->id_input;
-			$product_name =  $request->name_input;
-			$product_price =  $request->price_input;
-		    $quantity =  $request->quantity_input;
-		    $subtotal =  $request->subtotal_input;
-		    $order_id = $order->id;
+	        $data = array(
+			'product_id' =>  $request->id_input,
+			'product_name' =>  $request->name_input,
+			'product_price' =>  $request->price_input,
+		    'quantity' =>  $request->quantity_input,
+		    'subtotal' =>  $request->subtotal_input,
+		    'total' =>  $request->total,
+		    'bayar' =>  $request->bayar,
+		    'kembali' =>  $request->kembali,
+		    'order_id' => $order->id,
+		    'created_at' => $order->created_at,
+		    );
 
-		    $count = count($product_id);
+		    $count = count($data['product_id']);
 
 
 			for($i = 0; $i < $count; $i++){
 			    $objModel = new ProductsOrder();
-			    $objModel->order_id = $order_id;
-			    $objModel->product_id = $product_id[$i];
-			    $objModel->product_name = $product_name[$i];
-			    $objModel->product_price = $product_price[$i];
-			    $objModel->quantity = $quantity[$i];
-			    $objModel->subtotal = $subtotal[$i];
+			    $objModel->order_id = $data['order_id'];
+			    $objModel->product_id = $data['product_id'][$i];
+			    $objModel->product_name = $data['product_name'][$i];
+			    $objModel->product_price = $data['product_price'][$i];
+			    $objModel->quantity = $data['quantity'][$i];
+			    $objModel->subtotal = $data['subtotal'][$i];
 			    $objModel->save();
-			}
-	return redirect('/');
-}
+			};
+
+	$listproducts = ProductsOrder::where('order_id', '=', $data['order_id'])->get();
+	return view('invoice')->with('data', $data)->with('listproducts', $listproducts);	
+
+	}
 }
